@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: merchflow-db
+    image: postgres:12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: merchflow
+    ports:
+      - '5432:5432'
+    volumes:
+      - merchflow-db:/var/lib/postgresql/data
+
+  merchflow:
+    container_name: merchflow
+    image: node:16.10.0
+    build:
+      context: ./../../.
+      dockerfile: docker/production/Dockerfile
+    environment:
+      - PGUSER=postgres
+      - PGPASSWORD=test
+      - PGHOST=db
+    depends_on:
+      - db
+    ports:
+      - '8000:8000'
+
+volumes:
+  merchflow-db:

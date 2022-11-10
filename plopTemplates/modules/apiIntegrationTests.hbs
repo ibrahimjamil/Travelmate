@@ -1,0 +1,96 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { AxiosInstance } from 'axios';
+import { initTestServer } from '../../../../tests/util/setup';
+import { cleanupServer } from '../../../../tests/util/cleanup';
+import seedData from '../../../utils/seedData';
+import {{pascalCase name}} from '../{{camelCase name}}.model';
+import { {{pascalCase name}}Schema } from '../{{camelCase name}}.types';
+import { expectBaseEndpointFactory } from '../../../../tests/util/moduleIntergrationTests';
+
+let axiosClient: AxiosInstance;
+let expectBaseEndpointToWork: ReturnType<typeof expectBaseEndpointFactory>;
+
+beforeAll(async () => {
+  axiosClient = await initTestServer();
+  expectBaseEndpointToWork = expectBaseEndpointFactory<{{pascalCase name}}>(
+    '{{plural (camelCase name)}}',
+    {{pascalCase name}}Schema,
+    axiosClient,
+    // Uncomment if this module has seed data
+    // seedData.{{plural (camelCase name)}},
+  );
+});
+
+afterAll(async () => {
+  await cleanupServer();
+});
+
+describe('/{{plural (camelCase name)}}', () => {
+  describe('/', () => {
+    describe('POST', () => {
+      test('When request sent, then should add {{lowerCase name}} to DB', async () => {
+        await expectBaseEndpointToWork.addEndpoint.happy();
+      });
+      test('When request sent with extra field, then should strip field and add DB without error', async () => {
+        await expectBaseEndpointToWork.addEndpoint.extraField();
+      });
+      // Add a request body to the badRequest function before uncommenting
+      // test('When request sent with properties having a wrong type, then should respond with 400', async () => {
+      //  await expectBaseEndpointToWork.addEndpoint.badRequest(/* Add wrongly typed data here */);
+      // });
+      test('When request sent with no body, then should respond with 400', async () => {
+        await expectBaseEndpointToWork.addEndpoint.emptyBody();
+      });
+    });
+    describe('GET', () => {
+      test('When request sent, then should respond with list of all non deleted rows', async () => {
+        await expectBaseEndpointToWork.getAllEndpoint.happy();
+      });
+    });
+  });
+  describe('/:id', () => {
+    describe('GET', () => {
+      test('When get request sent with ID, then should respond with resource with matching ID', async () => {
+        await expectBaseEndpointToWork.getByIdEndpoint.happy();
+      });
+      test("When get request sent with ID for resource that doesn't exist, then should respond with 404", async () => {
+        await expectBaseEndpointToWork.getByIdEndpoint.nonExistant();
+      });
+      test("When get request sent with ID that isn't a number, then should respond with 400", async () => {
+        await expectBaseEndpointToWork.getByIdEndpoint.nanId();
+      });
+    });
+    describe('PATCH', () => {
+      test('When patch request sent with ID, then should update resource in DB', async () => {
+        await expectBaseEndpointToWork.updateEndpoint.happy();
+      });
+      test("When patch request sent with ID for resource that doesn't exist, then should respond with 404", async () => {
+        await expectBaseEndpointToWork.updateEndpoint.nonExistant();
+      });
+      test("When patch request sent with ID that isn't a number, then should respond with 400", async () => {
+        await expectBaseEndpointToWork.updateEndpoint.nanId();
+      });
+      test('When patch request sent with extra field, then should strip field and add DB without error', async () => {
+        await expectBaseEndpointToWork.updateEndpoint.extraFields();
+      });
+      // Add a request body to the badRequest function before uncommenting
+      // test('When patch request sent with properties having a wrong type, then should respond with 400', async () => {
+      //  await expectBaseEndpointToWork.updateEndpoint.badRequest(/* Add wrongly typed data here */);
+      // });
+      test('When patch request sent with no body, then should respond with 400', async () => {
+        await expectBaseEndpointToWork.updateEndpoint.emptyBody();
+      });
+    });
+    describe('DELETE', () => {
+      test('When delete request sent with ID, then should soft delete resource in DB', async () => {
+        await expectBaseEndpointToWork.deleteEndpoint.happy();
+      });
+      test("When delete request sent with ID for resource that doesn't exist, then should respond with 404", async () => {
+        await expectBaseEndpointToWork.deleteEndpoint.nonExistant();
+      });
+      test("When delete request sent with ID that isn't a number, then should respond with 400", async () => {
+        await expectBaseEndpointToWork.deleteEndpoint.nanId();
+      });
+    });
+  });
+});

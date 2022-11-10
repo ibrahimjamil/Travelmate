@@ -1,0 +1,7 @@
+import BaseService from '../../utils/moduleBase/base.service';
+import {{pascalCase name}} from './{{camelCase name}}.model';
+import {{camelCase name}}Repository, { {{pascalCase name}}Repository } from './{{camelCase name}}.repository';
+
+export class {{pascalCase name}}Service extends BaseService<{{pascalCase name}}, {{pascalCase name}}Repository> {}
+
+export default new {{pascalCase name}}Service({{camelCase name}}Repository);
