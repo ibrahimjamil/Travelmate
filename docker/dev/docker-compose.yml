@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   db:
-    container_name: merchflow-db
+    container_name: travelmate-db
     image: postgres:14
     restart: unless-stopped
     environment:
@@ -14,10 +14,10 @@ services:
     networks:
       - backend
     volumes:
-      - merchflow-db:/var/lib/postgresql/data
+      - travelmate-db:/var/lib/postgresql/data
 
   merchflow:
-    container_name: merchflow
+    container_name: travelmate
     image: node:16.10.0
     build:
       context: ./../../.
@@ -54,7 +54,7 @@ services:
       - ./meilisearch/data.ms:/data.ms
 
 volumes:
-  merchflow-db:
+  travelmate-db:
     driver: local
 
 networks:

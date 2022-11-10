@@ -2,19 +2,19 @@ version: '3.7'
 
 services:
   db:
-    container_name: merchflow-db
+    container_name: travelmate-db
     image: postgres:12
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test
-      POSTGRES_DB: merchflow
+      POSTGRES_DB: travelmate
     ports:
       - '5432:5432'
     volumes:
-      - merchflow-db:/var/lib/postgresql/data
+      - travelmate-db:/var/lib/postgresql/data
 
   merchflow:
-    container_name: merchflow
+    container_name: travelmate
     image: node:16.10.0
     build:
       context: ./../../.
@@ -29,4 +29,4 @@ services:
       - '8000:8000'
 
 volumes:
-  merchflow-db:
+  travelmate-db:
