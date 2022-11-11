@@ -9,7 +9,6 @@ export async function up(knex: Knex): Promise<void> {
       .foreign('traveler_id')
       .references('id')
       .inTable('traveler')
-      .nullable()
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
     t.string('type').notNullable();
