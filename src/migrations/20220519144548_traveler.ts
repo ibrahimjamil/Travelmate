@@ -6,6 +6,13 @@ export async function up(knex: Knex): Promise<void> {
     t.string('name').notNullable();
     t.string('email').notNullable();
     t.json('traveler_info').notNullable();
+    t.integer('user_id').unsigned().notNullable();
+    t
+      .foreign('user_id')
+      .references('id')
+      .inTable('user')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE')
     t.timestamps(true, true);
   });
 }

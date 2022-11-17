@@ -6,12 +6,7 @@ export const UserSchema = z.object({
   lastName: z.string(),
   password: z.string(),
   email: z.string().email(),
-  type: z.enum(['admin', 'noice']).optional(),
-  companyId: z.number(),
-  industryNumber: z.string().nullable(),
-  isDeleted: z.boolean(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  type: z.enum(['admin', 'noice']).optional()
 });
 
 
@@ -22,9 +17,7 @@ export const userSignUpSchema = z.object({
   lastName: z.string().nonempty('lastName field is required'),
   password: z.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/),
   email: z.string().nonempty('Email field is required').email(),
-  companyName: z.string().optional(),
-  inviteId: z.string().optional(),
-  industryNumber: z.string().max(1000000000).nullable(),
+  type: z.string()
 });
 
 export const userSignInSchema = z.object({

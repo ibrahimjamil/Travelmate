@@ -1,12 +1,10 @@
 import { Router, Request, Response } from 'express';
 import { verifyIdToken } from '../../middlewares/authMiddleware';
-import companyService from '../company/company.service';
 import UserService from './user.service';
 
 export class UserController {
   public router: Router;
   public userService = UserService;
-  public companyService = companyService;
 
   constructor() {
     this.router = Router();

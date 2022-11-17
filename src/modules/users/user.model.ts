@@ -6,5 +6,5 @@ export interface User extends UserType {}
 // eslint-disable-next-line no-redeclare
 export class User extends Model {
   // Table name is the only required property.
-  static tableName = 'users';
+  static tableName = 'user';
 }
