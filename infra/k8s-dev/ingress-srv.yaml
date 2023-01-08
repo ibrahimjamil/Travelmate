@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: travelmate.dev
+      http:
+        paths:
+          - path: /api/travelmate/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: travelmate-srv
+                port:
+                  number: 8000
+          - path: /api/payment/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: payment-srv
+                port:
+                  number: 8000
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 8000
