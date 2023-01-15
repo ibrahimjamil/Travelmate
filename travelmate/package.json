@@ -93,6 +93,7 @@
     "morgan": "^1.10.0",
     "node-cron": "^3.0.0",
     "node-fetch": "^3.2.6",
+    "node-nats-streaming": "^0.3.2",
     "objection": "^3.0.1",
     "passport": "^0.6.0",
     "passport-google-oauth": "^2.0.0",

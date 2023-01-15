@@ -3,21 +3,21 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('travel_history', (t) => {
     t.increments('id');
-    t.integer('traveler_id').unsigned().notNullable();
+    t.integer('user_id').unsigned()
     t
-        .foreign('traveler_id')
-        .references('id')
-        .inTable('traveler')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
-    t.integer('current_user_id').unsigned().notNullable();
-    t
-        .foreign('current_user_id')
+        .foreign('user_id')
         .references('id')
         .inTable('user')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-    t.json('travelers_traveling_info')
+    t.integer('recommended_travelers_id').unsigned()
+    t
+        .foreign('recommended_travelers_id')
+        .references('id')
+        .inTable('recommended_travelers')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+    t.json('history_info')
     t.string('location')
     t.string('budget')
     t.timestamps(true, true);

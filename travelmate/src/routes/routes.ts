@@ -8,6 +8,13 @@ const authController = new AuthController();
 
 export const noAuthRoutes = [
   {
+    path: '/nats-test/',
+    middleware: [],
+    action: () => {
+      
+    },
+  },
+  {
     path: '/auth/',
     middleware: [],
     action: authController.routes(),

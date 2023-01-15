@@ -21,6 +21,8 @@ import { logger, loggerHttp } from './utils/logger';
 import { createHttpTerminator } from 'http-terminator';
 import { AppRoutes, noAuthRoutes } from './routes/routes';
 import handleError, { handleErrorMiddleware } from './lib/errors/handleError';
+import { natsWrapper } from './nats-wrapper';
+import { NatTestPublisher } from './events/publishers/nats-test-publisher';
 /* eslint-enable */
 
 class Server {
@@ -124,7 +126,24 @@ class Server {
   /**
    * start the server
    */
-  public start() {
+  public async start() {
+    await natsWrapper.connect(
+      process.env.NATS_CLUSTER_ID!,
+      process.env.NATS_CLIENT_ID!,
+      process.env.NATS_URL!
+    );
+    natsWrapper.client.on("close", () => {
+      console.log("NATS connection closed!");
+      process.exit();
+    });
+    process.on("SIGINT", () => natsWrapper.client.close());
+    process.on("SIGTERM", () => natsWrapper.client.close());
+    // for testing purpose
+    new NatTestPublisher(natsWrapper.client).publish({
+      id: '1',
+      name: 'ibrahim jamil publish through nats'
+    });
+
     this.server = this.app.listen(this.app.get('port'), () => {
       logger.info(`Server is listening ${this.app.get('port') || 'random'} port.`);
     });

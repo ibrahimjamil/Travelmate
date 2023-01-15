@@ -1,23 +1,24 @@
 import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable('communication', (t) => {
+  return knex.schema.createTable('chat', (t) => {
     t.increments('id');
-    t.integer('traveler_id').unsigned().notNullable();
+    t.integer('user_id').unsigned()
     t
-        .foreign('traveler_id')
-        .references('id')
-        .inTable('traveler')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
-    t.integer('current_user_id').unsigned().notNullable();
-    t
-        .foreign('current_user_id')
+        .foreign('user_id')
         .references('id')
         .inTable('user')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-    t.json('travelers_communication_info')
+    t.integer('recommended_travelers_id').unsigned()
+    t
+        .foreign('recommended_travelers_id')
+        .references('id')
+        .inTable('recommended_travelers')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+    t.json('message')
+    t.boolean('confirmation_flag').defaultTo(false)
     t.string('name')
     t.string('description')
     t.string('details')

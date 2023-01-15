@@ -5,6 +5,9 @@ const userController = new UserController();
 
 export const noAuthRoutes = [
   {
+    path: '/',
+    middleware: [],
+    action: ()=>{},
   },
 ];
 
