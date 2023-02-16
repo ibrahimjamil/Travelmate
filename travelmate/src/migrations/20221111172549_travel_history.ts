@@ -10,11 +10,11 @@ export async function up(knex: Knex): Promise<void> {
         .inTable('user')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-    t.integer('recommended_travelers_id').unsigned()
+    t.integer('matched_traveler_id').unsigned()
     t
-        .foreign('recommended_travelers_id')
+        .foreign('matched_traveler_id')
         .references('id')
-        .inTable('recommended_travelers')
+        .inTable('matched_traveler')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
     t.json('history_info')

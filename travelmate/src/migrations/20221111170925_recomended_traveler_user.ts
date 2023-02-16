@@ -1,7 +1,9 @@
 import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable('matched_traveler', (t) => {
+    // we will run cron of that class to pick location and filter based interest if any and assign them accordingly and will show to
+    // frontend table recommended_traveler table (we will check history and gender with sme location travel).
+  return knex.schema.createTable('recommended_traveler_user', (t) => {
     t.increments('id');
     t.integer('user_id').unsigned()
     t
@@ -10,10 +12,9 @@ export async function up(knex: Knex): Promise<void> {
         .inTable('user')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-
-    t.integer('recommended_travelers_id').unsigned()
+    t.integer('recommended_traveler_id').unsigned()
     t
-        .foreign('recommended_travelers_id')
+        .foreign('recommended_traveler_id')
         .references('id')
         .inTable('recommended_travelers')
         .onUpdate('CASCADE')
@@ -23,5 +24,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTable('matched_traveler');
+  return knex.schema.dropTable('recommended_traveler_user');
 }
