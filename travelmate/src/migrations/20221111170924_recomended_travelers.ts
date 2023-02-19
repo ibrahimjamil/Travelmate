@@ -8,6 +8,12 @@ export async function up(knex: Knex): Promise<void> {
     t.string('email');
     t.string('rating');
     t
+      .foreign('recommended_traveler_id')
+      .references('id')
+      .inTable('user')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
+    t
       .foreign('user_id')
       .references('id')
       .inTable('user')
