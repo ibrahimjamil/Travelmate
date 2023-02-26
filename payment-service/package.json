@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "back-end for Merchflow",
+  "description": "back-end for payment-service",
   "main": "index.js",
   "engines": {
     "npm": ">=7.10.0",

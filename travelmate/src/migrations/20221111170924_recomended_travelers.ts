@@ -7,12 +7,14 @@ export async function up(knex: Knex): Promise<void> {
     t.string('name');
     t.string('email');
     t.string('rating');
+    t.integer('recommended_traveler_id').unsigned()
     t
       .foreign('recommended_traveler_id')
       .references('id')
       .inTable('user')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
+    t.integer('user_id').unsigned() 
     t
       .foreign('user_id')
       .references('id')

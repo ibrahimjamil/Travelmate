@@ -24,7 +24,7 @@ export class AuthController {
 
     if (schemaValidation.success) {
       // eslint-disable-next-line prefer-const
-      let { firstName, lastName, password, email, type } = req.body;
+      let { firstName, lastName, password, email, type, age, gender, location } = req.body;
 
       const userAttr = [];
       userAttr.push({ Name: 'email', Value: email });
@@ -39,7 +39,10 @@ export class AuthController {
                 email,
                 firstName,
                 lastName,
-                type
+                type,
+                age,
+                gender,
+                location
               });
               next();
             } catch (error: any) {

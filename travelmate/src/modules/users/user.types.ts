@@ -6,7 +6,10 @@ export const UserSchema = z.object({
   lastName: z.string(),
   password: z.string(),
   email: z.string().email(),
-  type: z.enum(['admin', 'noice']).optional()
+  type: z.enum(['admin', 'noice']).optional(),
+  age: z.string(),
+  gender: z.string(),
+  location: z.string()
 });
 
 
@@ -17,7 +20,10 @@ export const userSignUpSchema = z.object({
   lastName: z.string().nonempty('lastName field is required'),
   password: z.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/),
   email: z.string().nonempty('Email field is required').email(),
-  type: z.string()
+  type: z.string(),
+  age: z.string(),
+  gender: z.string(),
+  location: z.string()
 });
 
 export const userSignInSchema = z.object({

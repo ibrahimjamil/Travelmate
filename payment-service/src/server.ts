@@ -100,10 +100,10 @@ class Server {
    */
   public async routes() {
     noAuthRoutes.forEach((route: any) => {
-      this.app.use(`/api${route.path}`, route.middleware, route.action);
+      this.app.use(`/api/payment/api${route.path}`, route.middleware, route.action);
     });
     AppRoutes.forEach((route) => {
-      this.app.use(`/api${route.path}`, route.middleware, route.action);
+      this.app.use(`/api/payment/api${route.path}`, route.middleware, route.action);
     });
   }
 

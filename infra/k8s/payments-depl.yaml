@@ -32,20 +32,11 @@ spec:
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets-generics-payment
-                  key: POSTGRES_DB
+              value: payment
             - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets-generics-payment
-                  key: POSTGRES_USER
+              value: postgres
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets-generics-payment
-                  key: POSTGRES_PASSWORD
+              value: test
 ---
 apiVersion: v1
 kind: Service

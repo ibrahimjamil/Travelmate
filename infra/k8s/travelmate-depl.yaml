@@ -32,20 +32,11 @@ spec:
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets-generics-travelmate
-                  key: POSTGRES_DB
+              value: travelmate
             - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets-generics-travelmate
-                  key: POSTGRES_USER
+              value: postgres
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets-generics-travelmate
-                  key: POSTGRES_PASSWORD
+              value: test
 ---
 apiVersion: v1
 kind: Service
