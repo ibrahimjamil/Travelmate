@@ -7,7 +7,6 @@ export async function up(knex: Knex): Promise<void> {
     t.string('last_name').notNullable();
     t.string('email').notNullable();
     t.string('type').notNullable();
-    t.json('traveler_info').notNullable();
     t.timestamps(true, true);
   });
 }

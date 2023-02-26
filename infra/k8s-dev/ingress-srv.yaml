@@ -24,10 +24,3 @@ spec:
                 name: payment-srv
                 port:
                   number: 8000
-          - path: /?(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: client-srv
-                port:
-                  number: 8000
