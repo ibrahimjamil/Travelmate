@@ -1,9 +1,0 @@
-import { BaseController } from '../../utils/moduleBase/base.controller';
-import {{pascalCase name}} from './{{camelCase name}}.model';
-import { {{pascalCase name}}Repository } from './{{camelCase name}}.repository';
-import {{camelCase name}}Service, { {{pascalCase name}}Service } from './{{camelCase name}}.service';
-import { {{pascalCase name}}AddSchema, {{pascalCase name}}UpdateSchema } from './{{camelCase name}}.types';
-
-export class {{pascalCase name}}Controller extends BaseController<{{pascalCase name}}, {{pascalCase name}}Repository, {{pascalCase name}}Service> {}
-
-export default new {{pascalCase name}}Controller({{camelCase name}}Service, {{pascalCase name}}AddSchema, {{pascalCase name}}UpdateSchema);
