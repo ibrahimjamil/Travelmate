@@ -10,6 +10,10 @@ export async function up(knex: Knex): Promise<void> {
     t.string('age').notNullable();
     t.string('gender').notNullable();
     t.string('location').notNullable();
+    t.string('expectedMateAge').notNullable();
+    t.string('expectedVisitingPlaces').notNullable();
+    t.string('travelLocations').notNullable();
+    t.string('genderPreference').notNullable();
     t.timestamps(true, true);
   });
 }

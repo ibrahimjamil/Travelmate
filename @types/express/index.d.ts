@@ -5,3 +5,4 @@ declare module Express {
 }
 
 declare module 'strong-soap';
+declare module 'nanoid';

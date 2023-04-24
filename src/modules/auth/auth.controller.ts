@@ -1,17 +1,20 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import AuthService from './auth.service';
 import UserService from '../users/user.service';
+import MeiliSearchService from '../meiliSearch/meiliSearch.service';
 import {
   ForgotPasswordSchema,
   ResetPasswordSchema,
   userSignInSchema,
   userSignUpSchema,
 } from '../users/user.types';
+import { uuid4 } from '@sentry/utils';
 
 export class AuthController {
   public router: Router;
   public authService = AuthService;
   public userService = UserService;
+  public meilisearchService = MeiliSearchService;
 
   constructor() {
     this.router = Router();
@@ -24,8 +27,12 @@ export class AuthController {
 
     if (schemaValidation.success) {
       // eslint-disable-next-line prefer-const
-      let { firstName, lastName, password, email, type, age, gender, location } = req.body;
+      let { firstName, lastName, password, email, type, age, gender, location, expectedMateAge, expectedVisitingPlaces, travelLocations, genderPreference } = req.body;
 
+      const parsedExpectedMateAge = JSON.parse(expectedMateAge);
+      const parsedExpectedVisitingPlaces = JSON.parse(expectedVisitingPlaces);
+      const parsedTravelLocations = JSON.parse(travelLocations);
+      const parsedGenderPreference = JSON.parse(genderPreference);
       const userAttr = [];
       userAttr.push({ Name: 'email', Value: email });
       userAttr.push({ Name: 'custom:type', Value: type });
@@ -42,8 +49,41 @@ export class AuthController {
                 type,
                 age,
                 gender,
-                location
+                location,
+                expectedMateAge,
+                expectedVisitingPlaces,
+                travelLocations,
+                genderPreference
               });
+              const user = await this.userService.getOneUser(email);
+              await this.meilisearchService.addRecommendedTravelerIndex({
+                id: user?.id,
+                email,
+                firstName,
+                lastName,
+                type,
+                age,
+                gender,
+                location,
+                expectedMateAge: parsedExpectedMateAge,
+                expectedVisitingPlaces: parsedExpectedVisitingPlaces,
+                travelLocations: parsedTravelLocations,
+                genderPreference: parsedGenderPreference
+              })
+              await this.meilisearchService.addRecommendedTravelerIndex({
+                id: user?.id,
+                email: 'ibrahimjamil888@gmail.com',
+                firstName,
+                lastName,
+                type,
+                age,
+                gender: 'maleee',
+                location,
+                expectedMateAge: parsedExpectedMateAge,
+                expectedVisitingPlaces: parsedExpectedVisitingPlaces,
+                travelLocations: parsedTravelLocations,
+                genderPreference: parsedGenderPreference
+              })
               next();
             } catch (error: any) {
               res.status(500).json({

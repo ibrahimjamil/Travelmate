@@ -15,23 +15,29 @@ import * as Sentry from '@sentry/node';
 import cookieParser from 'cookie-parser';
 import * as Tracing from '@sentry/tracing';
 import APP_CONFIG from './config/appConfig';
-import { Server as HttpServer } from 'http';
+import { Server as HttpServer, createServer } from 'http';
 import knexConnection from '../knexConnection';
 import { logger, loggerHttp } from './utils/logger';
 import { createHttpTerminator } from 'http-terminator';
 import { AppRoutes, noAuthRoutes } from './routes/routes';
 import handleError, { handleErrorMiddleware } from './lib/errors/handleError';
-/* eslint-enable */
+import socket from "./socket";
+import { Server as IOServer } from "socket.io";
+import { initialize } from './lib/search';
 
+
+/* eslint-enable */
 class Server {
   private app: express.Application;
-  private server: HttpServer | null;
+  private server: HttpServer;
   private port: number | null;
+  private io: IOServer;
 
   constructor() {
     this.app = express(); // init the application
     this.port = Number(APP_CONFIG.PORT);
-    this.server = null;
+    this.server = createServer(this.app);
+    this.io = new IOServer(this.server);
     this.configuration();
     this.routes();
     this.errorHandling();
@@ -98,10 +104,10 @@ class Server {
    */
   public async routes() {
     noAuthRoutes.forEach((route: any) => {
-      this.app.use(`/api/travelmate/api${route.path}`, route.middleware, route.action);
+      this.app.use(`/api${route.path}`, route.middleware, route.action);
     });
     AppRoutes.forEach((route) => {
-      this.app.use(`/api/travelmate/api${route.path}`, route.middleware, route.action);
+      this.app.use(`/api${route.path}`, route.middleware, route.action);
     });
   }
 
@@ -125,8 +131,10 @@ class Server {
    * start the server
    */
   public async start() {
-    this.server = this.app.listen(this.app.get('port'), () => {
+    this.server.listen(this.app.get('port'), async() => {
       logger.info(`Server is listening ${this.app.get('port') || 'random'} port.`);
+      socket({ io: this.io });
+      await initialize()
     });
   }
 

@@ -68,9 +68,12 @@ export const getTotalCountOfDoc = async (index: string) => {
   return (await client.index(index).getStats()).numberOfDocuments;
 };
 
-config.indexes.forEach(async (index) => {
-  await initIndex(index);
-});
+export const initialize = async () => {
+  config.indexes.forEach(async (index) => {
+    await initIndex(index);
+  });
+  return;
+}
 
 export const updateIndexSettings = async (index: SearchIndexConfig) => {
   const res = await client.index(index.name).updateSettings(index.config);

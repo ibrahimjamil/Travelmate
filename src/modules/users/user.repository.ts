@@ -12,7 +12,7 @@ export class UserRepository {
     });
   }
 
-  async createUser(userData: Partial<UserType>) {
+  async createUser(userData: Partial<any>) {
     return await User.query().insert(userData);
   }
 
