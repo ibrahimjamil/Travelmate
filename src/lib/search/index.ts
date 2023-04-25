@@ -80,9 +80,12 @@ export const updateIndexSettings = async (index: SearchIndexConfig) => {
   return res;
 };
 
-// config.indexes.forEach((index) => {
-//   deleteIndex(index.name);
-// });
+export const deInitialize = async () => {
+  config.indexes.forEach(async (index) => {
+    await deleteIndex(index.name);
+  });
+  return;
+}
 
 export const updateIndexesIfRequired = async () => {
   // eslint-disable-next-line consistent-return

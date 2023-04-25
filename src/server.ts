@@ -23,7 +23,7 @@ import { AppRoutes, noAuthRoutes } from './routes/routes';
 import handleError, { handleErrorMiddleware } from './lib/errors/handleError';
 import socket from "./socket";
 import { Server as IOServer } from "socket.io";
-import { initialize } from './lib/search';
+import { deInitialize, initialize } from './lib/search';
 
 
 /* eslint-enable */
@@ -134,6 +134,7 @@ class Server {
     this.server.listen(this.app.get('port'), async() => {
       logger.info(`Server is listening ${this.app.get('port') || 'random'} port.`);
       socket({ io: this.io });
+      // await deInitialize();
       await initialize()
     });
   }

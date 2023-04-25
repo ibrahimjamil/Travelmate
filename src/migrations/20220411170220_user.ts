@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
     t.string('location').notNullable();
     t.string('expectedMateAge').notNullable();
     t.string('expectedVisitingPlaces').notNullable();
-    t.string('travelLocations').notNullable();
+    t.string('travelLocationsPreference').notNullable();
     t.string('genderPreference').notNullable();
     t.timestamps(true, true);
   });

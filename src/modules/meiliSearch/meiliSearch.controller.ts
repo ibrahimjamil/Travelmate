@@ -23,9 +23,9 @@ export class MeiliSearchController {
         minimumQuantity
       } = req.query;
       const filterParams = {
-        travelerLocation: JSON.parse(String(travelerLocation)),
+        travelerLocation: JSON.parse(String(travelerLocation)),  // traveler own location
         travelerGender: JSON.parse(String(travelerGender)),
-        toTravelPlaces: JSON.parse(String(toTravelPlaces)),
+        toTravelPlaces: JSON.parse(String(toTravelPlaces)),     // where he want to travel
         minimumQuantity,
         travelerStatus
       }

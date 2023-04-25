@@ -24,10 +24,24 @@ export const config: SearchConfig = {
       primaryKey: 'id',
       config: {
         filterableAttributes: [
-          'id',
-          'info.name',
+          'expectedMateAge',
+          'expectedVisitingPlaces',
+          'travelLocationsPreference',
+          'genderPreference',
+          'travelerStatus',
+          'location',
+          'status',
+          'gender'
         ],
         searchableAttributes: [
+          'id',
+          'firstName',
+          'lastName',
+          'age',
+          'email',
+          'gender',
+          'location',
+          'status'
         ],
         pagination: { maxTotalHits: 300000 },
       },

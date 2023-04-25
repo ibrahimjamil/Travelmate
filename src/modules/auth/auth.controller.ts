@@ -27,11 +27,11 @@ export class AuthController {
 
     if (schemaValidation.success) {
       // eslint-disable-next-line prefer-const
-      let { firstName, lastName, password, email, type, age, gender, location, expectedMateAge, expectedVisitingPlaces, travelLocations, genderPreference } = req.body;
+      let { firstName, lastName, password, email, type, age, gender, location, expectedMateAge, expectedVisitingPlaces, travelLocationsPreference, genderPreference } = req.body;
 
       const parsedExpectedMateAge = JSON.parse(expectedMateAge);
       const parsedExpectedVisitingPlaces = JSON.parse(expectedVisitingPlaces);
-      const parsedTravelLocations = JSON.parse(travelLocations);
+      const parsedTravelLocationsPreference = JSON.parse(travelLocationsPreference);
       const parsedGenderPreference = JSON.parse(genderPreference);
       const userAttr = [];
       userAttr.push({ Name: 'email', Value: email });
@@ -52,7 +52,7 @@ export class AuthController {
                 location,
                 expectedMateAge,
                 expectedVisitingPlaces,
-                travelLocations,
+                travelLocationsPreference,
                 genderPreference
               });
               const user = await this.userService.getOneUser(email);
@@ -67,22 +67,9 @@ export class AuthController {
                 location,
                 expectedMateAge: parsedExpectedMateAge,
                 expectedVisitingPlaces: parsedExpectedVisitingPlaces,
-                travelLocations: parsedTravelLocations,
-                genderPreference: parsedGenderPreference
-              })
-              await this.meilisearchService.addRecommendedTravelerIndex({
-                id: user?.id,
-                email: 'ibrahimjamil888@gmail.com',
-                firstName,
-                lastName,
-                type,
-                age,
-                gender: 'maleee',
-                location,
-                expectedMateAge: parsedExpectedMateAge,
-                expectedVisitingPlaces: parsedExpectedVisitingPlaces,
-                travelLocations: parsedTravelLocations,
-                genderPreference: parsedGenderPreference
+                travelLocationsPreference: parsedTravelLocationsPreference,
+                genderPreference: parsedGenderPreference,
+                status:'active'
               })
               next();
             } catch (error: any) {
