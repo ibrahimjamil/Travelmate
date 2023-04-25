@@ -10,27 +10,28 @@ export class MeiliSearchController {
     this.routes();
   }
 
-  public searchProducts = async (req: Request, res: Response) => {
+  public searchTravelers = async (req: Request, res: Response) => {
     try {
-      // const {
-      //   query, pageNo, productSize, productBrand, productColor,
-      //   productCategory, minimumQuantity, pageSize, ageFilter,
-      //   genderFilter, materialFilter, showStyleIndexSwitchButton,
-      // } = req.query;
-      // const filterParams = {
-      //   productSize: JSON.parse(String(productSize)),
-      //   productBrand: JSON.parse(String(productBrand)),
-      //   productColor: JSON.parse(String(productColor)),
-      //   productCategory: JSON.parse(String(productCategory)),
-      //   ageFilter: JSON.parse(String(ageFilter)),
-      //   genderFilter: JSON.parse(String(genderFilter)),
-      //   materialFilter: JSON.parse(String(materialFilter)),
-      //   minimumQuantity,
-      //   showStyleIndexSwitchButton: JSON.parse(String(showStyleIndexSwitchButton)),
-      // }
-      // const searchResult = await this.meiliSearchService
-      //   .searchProductVariants(String(query), filterParams, Number(pageSize), Number(pageNo));
-      // res.status(200).send(searchResult);
+      const {
+        pageNo,
+        pageSize,
+        query,
+        travelerLocation,
+        travelerGender,
+        travelerStatus,
+        toTravelPlaces,
+        minimumQuantity
+      } = req.query;
+      const filterParams = {
+        travelerLocation: JSON.parse(String(travelerLocation)),
+        travelerGender: JSON.parse(String(travelerGender)),
+        toTravelPlaces: JSON.parse(String(toTravelPlaces)),
+        minimumQuantity,
+        travelerStatus
+      }
+      const searchResult = await this.meiliSearchService
+        .searchRecommendedTravelers(String(query), filterParams, Number(pageSize), Number(pageNo));
+      res.status(200).send(searchResult);
     } catch (error: any) {
       res.status(500).send({
         error: true,
@@ -40,7 +41,7 @@ export class MeiliSearchController {
   }
 
   public routes() {
-    this.router.get('/search', this.searchProducts);
+    this.router.get('/search', this.searchTravelers);
     return this.router
   }
 }
