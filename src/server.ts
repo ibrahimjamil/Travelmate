@@ -132,7 +132,7 @@ class Server {
    */
   public async start() {
     this.server.listen(this.app.get('port'), async() => {
-      logger.info(`Server is listening ${this.app.get('port') || 'random'} port.`);
+      logger.info(`Server listening ${this.app.get('port') || 'random'} port.`);
       socket({ io: this.io });
       // await deInitialize();
       await initialize()
