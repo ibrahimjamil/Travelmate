@@ -72,8 +72,25 @@ export class UserController {
     }
   };
 
+  public getOneUserById = async (req: Request, res: Response) => {
+    const user = await this.userService.getUserById(req.query.id);
+    console.log(user)
+      if (user) {
+        res.status(200).send({
+          error: false,
+          ...user,
+        });
+      } else {
+        res.status(402).send({
+          error: true,
+          message: 'Email does not exists',
+        });
+      }
+  };
+
   public routes() {
     this.router.get('/', verifyIdToken, this.getUser);
+    this.router.get('/one', verifyIdToken, this.getOneUserById)
     this.router.patch('/update', verifyIdToken, this.updateUser);
     return this.router;
   }

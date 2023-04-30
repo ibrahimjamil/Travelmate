@@ -12,6 +12,10 @@ class UserService {
     return await this.userRepository.getUser(email);
   };
 
+  public getUserById = async (id: any) => {
+    return await this.userRepository.getUserId(id);
+  }
+
   public addUser = async (userData: Partial<any>) => {
     return await this.userRepository.createUser(userData);
   };

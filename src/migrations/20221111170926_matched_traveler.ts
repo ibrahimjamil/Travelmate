@@ -15,7 +15,7 @@ export async function up(knex: Knex): Promise<void> {
     t
         .foreign('recommended_travelers_id')
         .references('id')
-        .inTable('recommended_travelers')
+        .inTable('user')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
     t.timestamps(true, true);

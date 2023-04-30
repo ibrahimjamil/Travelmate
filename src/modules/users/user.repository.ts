@@ -12,6 +12,12 @@ export class UserRepository {
     });
   }
 
+  async getUserId(id: any) {
+    return await User.query().findOne({
+      id,
+    });
+  }
+
   async createUser(userData: Partial<any>) {
     return await User.query().insert(userData);
   }

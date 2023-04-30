@@ -37,7 +37,11 @@ class Server {
     this.app = express(); // init the application
     this.port = Number(APP_CONFIG.PORT);
     this.server = createServer(this.app);
-    this.io = new IOServer(this.server);
+    this.io = new IOServer(this.server, {
+      cors: {
+        origin: ["http://localhost:3000", "http://localhost:3001"]
+      }
+    });
     this.configuration();
     this.routes();
     this.errorHandling();
