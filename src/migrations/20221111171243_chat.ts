@@ -3,6 +3,7 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('chat', (t) => {
     t.increments('id');
+    t.string('conversation_id').unsigned();
     t.integer('user_id').unsigned()
     t
         .foreign('user_id')
@@ -14,18 +15,14 @@ export async function up(knex: Knex): Promise<void> {
     t
         .foreign('recommended_travelers_id')
         .references('id')
-        .inTable('recommended_travelers')
+        .inTable('user')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-    t.json('message')
-    t.boolean('confirmation_flag').defaultTo(false)
-    t.string('name')
-    t.string('description')
-    t.string('details')
+    t.string('message')
     t.timestamps(true, true);
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTable('communication');
+  return knex.schema.dropTable('chat');
 }

@@ -27,11 +27,11 @@ export class TravelMatchController {
   };
 
   public getUserMatches = async (req: Request, res: Response) => {
-    const user = await this.travelMatchService.getUserMatches(req.user.email);
+    const user = await this.travelMatchService.getUserMatches(req.query.id);
       if (user) {
         res.status(200).send({
           error: false,
-          ...user,
+          user: user,
         });
       } else {
         res.status(402).send({
