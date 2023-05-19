@@ -93,6 +93,7 @@
     "rate-limiter-flexible": "^2.4.1",
     "redis": "^4.3.1",
     "socket.io": "^4.6.1",
+    "stripe": "^12.5.0",
     "strong-soap": "^3.4.0",
     "ts-node": "^10.3.0",
     "uuid": "^8.3.2",

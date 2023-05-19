@@ -14,6 +14,9 @@ export async function up(knex: Knex): Promise<void> {
     t.string('expectedVisitingPlaces').notNullable();
     t.string('travelLocationsPreference').notNullable();
     t.string('genderPreference').notNullable();
+    t.string('religion')
+    t.string('personQty')
+    t.string('ridePreference')
     t.timestamps(true, true);
   });
 }

@@ -21,6 +21,14 @@ class MeiliSearchService {
       filtersIndex += 1;
     }
 
+    if (filterParams.ridePreferences?.length) {
+      filter.push([]);
+      filterParams.ridePreferences?.forEach((s: any) => {
+        filter[filtersIndex].push(`ridePreference = '${s}'`);
+      });
+      filtersIndex += 1;
+    }
+
     if (filterParams.travelerGender?.length) {
       filter.push([]);
       filterParams.travelerGender?.forEach((s: any) => {
@@ -38,6 +46,11 @@ class MeiliSearchService {
     if (filterParams?.travelerStatus) {
       filter.push([]);
       filter[filtersIndex].push(`status = '${(filterParams.travelerStatus)}'`);
+      filtersIndex += 1;
+    }
+    if (filterParams?.religion) {
+      filter.push([]);
+      filter[filtersIndex].push(`religion = '${(filterParams.religion)}'`);
       filtersIndex += 1;
     }
     

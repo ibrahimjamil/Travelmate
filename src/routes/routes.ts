@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { setUpPem, verifyAccessToken } from '../middlewares/authMiddleware';
 import { AuthController } from '../modules/auth/auth.controller';
 import { MeiliSearchController } from '../modules/meiliSearch/meiliSearch.controller';
+import { PaymentController } from '../modules/payment/payment.controller';
 import { TravelMatchController } from '../modules/traveler_match/travelmatch.controller';
 import { UserController } from '../modules/users/user.controller';
 
@@ -22,6 +23,11 @@ export const noAuthRoutes = [
     path: '/auth/',
     middleware: [],
     action: authController.routes(),
+  },
+  {
+    path: '/payment/',
+    middleware: [],
+    action: new PaymentController().routes(),
   }
 ];
 

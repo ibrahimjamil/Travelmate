@@ -27,12 +27,13 @@ export class AuthController {
 
     if (schemaValidation.success) {
       // eslint-disable-next-line prefer-const
-      let { firstName, lastName, password, email, type, age, gender, location, expectedMateAge, expectedVisitingPlaces, travelLocationsPreference, genderPreference } = req.body;
+      let { firstName, lastName, password, email, type, age, gender, location, expectedMateAge, expectedVisitingPlaces, travelLocationsPreference, genderPreference, religion, personQty, ridePreference } = req.body;
 
       const parsedExpectedMateAge = JSON.parse(expectedMateAge);
       const parsedExpectedVisitingPlaces = JSON.parse(expectedVisitingPlaces);
       const parsedTravelLocationsPreference = JSON.parse(travelLocationsPreference);
       const parsedGenderPreference = JSON.parse(genderPreference);
+      const parsedRideInfo = JSON.parse(ridePreference);
       const userAttr = [];
       userAttr.push({ Name: 'email', Value: email });
       userAttr.push({ Name: 'custom:type', Value: type });
@@ -53,7 +54,10 @@ export class AuthController {
                 expectedMateAge,
                 expectedVisitingPlaces,
                 travelLocationsPreference,
-                genderPreference
+                genderPreference,
+                religion,
+                personQty,
+                ridePreference
               });
               const user = await this.userService.getOneUser(email);
               await this.meilisearchService.addRecommendedTravelerIndex({
@@ -69,7 +73,10 @@ export class AuthController {
                 expectedVisitingPlaces: parsedExpectedVisitingPlaces,
                 travelLocationsPreference: parsedTravelLocationsPreference,
                 genderPreference: parsedGenderPreference,
-                status:'active'
+                status:'active',
+                ridePreference: parsedRideInfo,
+                religion,
+                personQty
               })
               next();
             } catch (error: any) {

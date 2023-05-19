@@ -31,7 +31,10 @@ export const config: SearchConfig = {
           'travelerStatus',
           'location',
           'status',
-          'gender'
+          'gender',
+          'religion',
+          'ridePreference',
+          'personQty'
         ],
         searchableAttributes: [
           'id',
@@ -41,7 +44,10 @@ export const config: SearchConfig = {
           'email',
           'gender',
           'location',
-          'status'
+          'status',
+          'religion',
+          'ridePreference',
+          'personQty'
         ],
         pagination: { maxTotalHits: 300000 },
       },

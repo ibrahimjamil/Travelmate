@@ -20,14 +20,18 @@ export class MeiliSearchController {
         travelerGender,
         travelerStatus,
         toTravelPlaces,
-        minimumQuantity
+        minimumQuantity,
+        religion,
+        ridePreference,
       } = req.query;
       const filterParams = {
         travelerLocation: JSON.parse(String(travelerLocation)),  // traveler own location
         travelerGender: JSON.parse(String(travelerGender)),
         toTravelPlaces: JSON.parse(String(toTravelPlaces)),     // where he want to travel
+        ridePreference: JSON.parse(String(ridePreference)),
         minimumQuantity,
-        travelerStatus
+        travelerStatus,
+        religion,
       }
       const searchResult = await this.meiliSearchService
         .searchRecommendedTravelers(String(query), filterParams, Number(pageSize), Number(pageNo));
