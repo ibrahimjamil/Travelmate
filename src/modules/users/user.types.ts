@@ -27,7 +27,7 @@ export const userSignUpSchema = z.object({
 });
 
 export const userSignInSchema = z.object({
-  email: z.string().nonempty('email field is required').email(),
+  email: z.string(),
   password: z.string(),
 });
 

@@ -21,9 +21,9 @@ class MeiliSearchService {
       filtersIndex += 1;
     }
 
-    if (filterParams.ridePreferences?.length) {
+    if (filterParams.ridePreference?.length) {
       filter.push([]);
-      filterParams.ridePreferences?.forEach((s: any) => {
+      filterParams.ridePreference?.forEach((s: any) => {
         filter[filtersIndex].push(`ridePreference = '${s}'`);
       });
       filtersIndex += 1;
