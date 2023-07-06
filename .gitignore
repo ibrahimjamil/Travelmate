@@ -100,7 +100,6 @@ dist
 .tern-port
 
 # node js build
-build
 
 # Test coverage reports
 tests/coverage
