@@ -99,7 +99,11 @@ class Server {
       }),
     );
     this.app.use(flash());
-    this.app.use(cors());
+    this.app.use(cors({
+      origin: "https://travelmate-frontend.vercel.app",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type"]
+    }));
     Model.knex(knexConnection[APP_CONFIG.ENV || 'dev']);
   }
 
