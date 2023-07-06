@@ -29,7 +29,7 @@ import { deInitialize, initialize } from './lib/search';
 /* eslint-enable */
 class Server {
   private app: express.Application;
-  private server: HttpServer;
+  public server: HttpServer;
   private port: number | null;
   private io: IOServer;
 
@@ -39,7 +39,7 @@ class Server {
     this.server = createServer(this.app);
     this.io = new IOServer(this.server, {
       cors: {
-        origin: ["http://localhost:3000", "http://localhost:3001"]
+        origin: ["http://localhost:3000", "http://localhost:3001", 'https://travelmate-frontend.vercel.app']
       }
     });
     this.configuration();
@@ -100,9 +100,8 @@ class Server {
     );
     this.app.use(flash());
     this.app.use(cors({
-      origin: "https://travelmate-frontend.vercel.app",
+      origin: "*",
       methods: ["GET", "POST", "PUT", "DELETE"],
-      allowedHeaders: ["Content-Type"]
     }));
     Model.knex(knexConnection[APP_CONFIG.ENV || 'dev']);
   }

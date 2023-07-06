@@ -1,6 +1,7 @@
 import { Server, Socket } from "socket.io";
 import knexConnection from "../knexConnection";
 import { logger } from "./utils/logger";
+import server from '../src/server'
 
 function socket({ io }: { io: Server }) {
   logger.info('socket-enabled')
@@ -9,7 +10,13 @@ function socket({ io }: { io: Server }) {
     const sortedIds = [userId1, userId2].sort();
     return `${sortedIds[0]}-${sortedIds[1]}`;
   }
-  
+  io.attach(server.server, {
+    cors: {
+      origin: "https://travelmate-frontend.vercel.app",
+      methods: ["GET", "POST", "PUT", "DELETE"]
+    }
+  });
+
   // Socket.IO
   io.on("connection", (socket) => {
     logger.info('connection established');
