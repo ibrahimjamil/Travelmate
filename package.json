@@ -16,7 +16,7 @@
     "staging": "npm run migration:up:staging && NODE_ENV=staging nodemon src/server.ts",
     "lint": "eslint src --ext .ts",
     "format": "eslint src --ext .ts --fix",
-    "build": "tsc",
+    "build": "",
     "module:make": "plop module",
     "dev:watch": "nodemon src/server.ts",
     "start": "npm run build && npm run migration:up && node build/src/server.js",
