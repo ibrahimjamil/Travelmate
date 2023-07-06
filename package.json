@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "back-end for travelmate",
   "main": "index.js",
+  "type": "module",
   "engines": {
     "npm": ">=7.10.0",
     "node": "16.10.0"
