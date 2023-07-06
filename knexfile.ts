@@ -75,6 +75,26 @@ const config: { [key: string]: Knex.Config } = {
       underscoreBetweenUppercaseLetters: true,
     }),
   },
+  production: {
+    client: 'postgresql',
+    connection: {
+      host: APP_CONFIG.DB_HOST,
+      port: Number(APP_CONFIG.DB_PORT),
+      user: APP_CONFIG.DB_USERNAME,
+      password: APP_CONFIG.DB_PASSWORD,
+      database: APP_CONFIG.DB_NAME,
+      ssl: { rejectUnauthorized: false },
+    },
+    migrations: {
+      directory: __dirname + '/src/migrations',
+    },
+    seeds: {
+      directory: __dirname + '/src/seeds',
+    },
+    ...knexSnakeCaseMappers({
+      underscoreBetweenUppercaseLetters: true,
+    }),
+  },
 };
 
 export default config;

@@ -5,7 +5,7 @@ import { logger } from '../../utils/logger';
 import { config, SearchIndexConfig } from './search.config';
 
 export const client = new MeiliSearch({
-  host: `http://${appConfig.MEILI_HOST}:${appConfig.MEILI_PORT}`,
+  host: `http://${appConfig.MEILI_HOST}`,
   apiKey: process.env.MEILI_MASTER_KEY,
 });
 
