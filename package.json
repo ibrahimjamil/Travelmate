@@ -34,7 +34,7 @@
     "migration:reset:dev": "NODE_ENV=dev knex migrate:rollback --all && NODE_ENV=dev knex migrate:latest",
     "migration:up:staging": "NODE_ENV=staging knex migrate:latest",
     "migration:down:staging": "NODE_ENV=staging knex migrate:down",
-    "migration:up:production": "",
+    "migration:up:production": "NODE_ENV=production knex migrate:latest",
     "migration:down:production": "NODE_ENV=production knex migrate:down"
   },
   "author": "Ibrahim",
