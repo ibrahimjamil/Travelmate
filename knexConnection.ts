@@ -87,7 +87,6 @@ const knexConnection: { [key: string]: Knex<any, unknown[]> } = {
       user: APP_CONFIG.DB_USERNAME,
       password: APP_CONFIG.DB_PASSWORD,
       database: APP_CONFIG.DB_NAME,
-      ssl: { rejectUnauthorized: false },
     },
     migrations: {
       directory: path.join(__dirname, '/src/migrations'),
