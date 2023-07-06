@@ -22,7 +22,7 @@
     "start:dev": "npm run migration:up:dev && NODE_ENV=local nodemon src/server.ts",
     "start:test": "npm run migration:up:test && NODE_ENV=test nodemon src/server.ts",
     "start:staging": "npm run migration:up:staging && NODE_ENV=staging node build/src/server.js",
-    "start:production": "npm install && npm i --save-dev typescript ts-node && npm run migration:up:production && NODE_ENV=production node build/src/server.js",
+    "start:production": "npx install && npx tsc && npm run migration:up:production && NODE_ENV=production node build/src/server.js",
     "start:dev:ts-watch": "ts-node-dev --poll --respawn src/server.ts | pino-pretty -c -t",
     "migration:create": "NODE_ENV=local knex migrate:make",
     "migration:up": "NODE_ENV=local knex migrate:latest",
