@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import nodemailer from 'nodemailer';
-import {google, google} from 'googleapis'
+import {google} from 'googleapis'
 
 export class InviteController {
   public router: Router;
@@ -21,9 +21,7 @@ export class InviteController {
     const googleAPI = new google.auth.OAuth2(CLIENTID, CLIENT_SECRET, REDIRECT_URI)
     googleAPI.setCredentials({refresh_token: REFRESH_TOKEN})
 
-    const accessToken = await googleAPI.getAccessToken();
-
-    const transporter: any = nodemailer.createTransport<any>({
+    const transporter: any = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             type: 'OAuth2',
@@ -31,9 +29,9 @@ export class InviteController {
             clientId: CLIENTID,
             clientSecret: CLIENT_SECRET,
             refreshToken: REFRESH_TOKEN,
-            accessToken: accessToken
+            accessToken: 'ya29.a0AbVbY6NCExPVtW1FTM86UKWl8k8qUX-aXnN2owvE4qRnaC4KRKkwhh6oZklgNRYzY081IVjkDSUp3xg2zj9scbgT9dBEzcmeMhsF0cG9Qqa01-t20Hm_2a2TK4s6Iy0gOINgJxasBbtxlFhryWJ3uwFvMSYIaCgYKAfsSARISFQFWKvPlcTWswLvjsyg5qv24dV2lzw0163'
         }
-    }) 
+    }) as any
 
     const info = await transporter.sendMail({
         from: 'ibrahimjamil090@gmail.com',
