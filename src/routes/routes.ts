@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { InviteController } from 'src/modules/invite/invite.controller';
+import { InviteController } from '../modules/invite/invite.controller';
 import { setUpPem, verifyAccessToken } from '../middlewares/authMiddleware';
 import { AuthController } from '../modules/auth/auth.controller';
 import { MeiliSearchController } from '../modules/meiliSearch/meiliSearch.controller';
