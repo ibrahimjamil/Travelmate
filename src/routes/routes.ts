@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { InviteController } from 'src/modules/invite/invite.controller';
 import { setUpPem, verifyAccessToken } from '../middlewares/authMiddleware';
 import { AuthController } from '../modules/auth/auth.controller';
 import { MeiliSearchController } from '../modules/meiliSearch/meiliSearch.controller';
@@ -10,6 +11,7 @@ const userController = new UserController();
 const authController = new AuthController();
 const meilisearchController = new MeiliSearchController();
 const travelMatchController = new TravelMatchController();
+const inviteController = new InviteController();
 
 export const noAuthRoutes = [
   {
@@ -46,5 +48,10 @@ export const AppRoutes = [
     path: '/travelerRecommendations/',
     middleware: [setUpPem, verifyAccessToken],
     action: meilisearchController.routes(),
-  }
+  },
+  {
+    path: '/invites/',
+    middleware: [setUpPem, verifyAccessToken],
+    action: inviteController.routes(),
+  },
 ];
