@@ -35,7 +35,7 @@ export class InviteController {
         to: `${email}`,
         subject: "Travelmate Invite",
         text: "Hy! I invite you to our app travelmate for travel user matching online this website https://travelmate-frontend.vercel.app/",
-        html: "<b>Hy! I invite you to our app travelmate for travel user matching online</b>",
+        html: "<b>Hy! I invite you to our app travelmate for travel user matching online this website: https://travelmate-frontend.vercel.app</b>",
       });
 
     return res.status(200).send(info.messageId)
