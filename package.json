@@ -69,6 +69,7 @@
     "express-rate-limit": "^6.6.0",
     "express-session": "^1.17.3",
     "ftp": "^0.3.10",
+    "googleapis": "^122.0.0",
     "helmet": "^5.1.0",
     "http-terminator": "^3.2.0",
     "ioredis": "^5.2.4",
