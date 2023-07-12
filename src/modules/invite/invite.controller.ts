@@ -13,7 +13,7 @@ export class InviteController {
     const { email } = req.body;
     const testAccount = await nodemailer.createTestAccount();
     const transporter = nodemailer.createTransport({
-        host: 'Gmail',
+        host: 'gmail',
         port: 587,
         auth: {
             user: 'jacklyn.kreiger@ethereal.email',
