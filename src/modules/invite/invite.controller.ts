@@ -25,7 +25,7 @@ export class InviteController {
         service: 'gmail',
         auth: {
             type: 'OAuth2',
-            user: 'jacklyn.kreiger@ethereal.email',
+            user: 'ibrahimjamil090@gmail.com',
             clientId: CLIENTID,
             clientSecret: CLIENT_SECRET,
             refreshToken: REFRESH_TOKEN,
