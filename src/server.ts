@@ -142,7 +142,7 @@ class Server {
       logger.info(`Server listening ${this.app.get('port') || 'random'} port.`);
       socket({ io: this.io });
       // await deInitialize();
-      // await initialize()
+      await initialize()
     });
   }
 
