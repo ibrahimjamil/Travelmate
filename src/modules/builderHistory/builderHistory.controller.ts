@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import knexConnection from 'knexConnection';
+import knexConnection from '../../../knexConnection';
 import { verifyIdToken } from '../../middlewares/authMiddleware';
 import UserService from '../users/user.service';
 

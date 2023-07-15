@@ -1,4 +1,4 @@
-import knexConnection from "knexConnection";
+import knexConnection from "../../../knexConnection";
 
 class BuilderHistoryService {
   constructor() {
