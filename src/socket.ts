@@ -2,6 +2,7 @@ import { Server, Socket } from "socket.io";
 import knexConnection from "../knexConnection";
 import { logger } from "./utils/logger";
 import server from '../src/server'
+import UserService from './modules/users/user.service';
 
 function socket({ io }: { io: Server }) {
   logger.info('socket-enabled')
@@ -54,7 +55,13 @@ function socket({ io }: { io: Server }) {
         message: data?.message || '',
       }).returning('*');
       console.log(res[0])
+
+      const sender = await UserService.getUserById(senderId)
+      const receiver = await UserService.getUserById(receiverId);
       io.to(conversationId).emit("receive message", res[0]);
+      io.to(conversationId).emit("notify-message", {
+        message: `${sender?.firstName} - ${sender?.lastName} has send message to ${receiver?.firstName} - ${receiver?.lastName}`
+      })
       console.log('send message')
     });
   
