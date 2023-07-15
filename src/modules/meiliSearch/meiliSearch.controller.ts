@@ -51,7 +51,7 @@ export class MeiliSearchController {
         `;
         const user = await userService.getOneUser(req.user.email)
         await builderHistoryService.postBuilderHistory({
-          message: message 
+          message: message.length > 255 ? message.slice(0, 254) : message 
         }, user?.id)
       }
 
