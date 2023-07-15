@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express';
 import MeiliSearchService from './meiliSearch.service';
-
+import builderHistoryService from '../builderHistory/builderHistory.service';
+import { verifyIdToken } from 'src/middlewares/authMiddleware';
+import userService from '../users/user.service';
 export class MeiliSearchController {
   public router: Router;
   public meiliSearchService = MeiliSearchService;
@@ -33,6 +35,26 @@ export class MeiliSearchController {
         travelerStatus,
         religion,
       }
+
+      if (travelerLocation || travelerGender) {
+        const message = `
+          pageNo: ${pageNo},
+          pageSize: ${pageSize},
+          query: ${query},
+          travelerLocation: ${travelerLocation},
+          travelerGender: ${travelerGender},
+          travelerStatus: ${travelerStatus},
+          toTravelPlaces: ${toTravelPlaces},
+          minimumQuantity: ${minimumQuantity},
+          religion: ${religion},
+          ridePreference: ${ridePreference}
+        `;
+        const user = await userService.getOneUser(req.user.email)
+        await builderHistoryService.postBuilderHistory({
+          message: message 
+        }, user?.id)
+      }
+
       const searchResult = await this.meiliSearchService
         .searchRecommendedTravelers(String(query), filterParams, Number(pageSize), Number(pageNo));
       res.status(200).send(searchResult);
@@ -45,7 +67,7 @@ export class MeiliSearchController {
   }
 
   public routes() {
-    this.router.get('/search', this.searchTravelers);
+    this.router.get('/search', verifyIdToken ,this.searchTravelers);
     return this.router
   }
 }

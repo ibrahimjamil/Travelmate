@@ -6,12 +6,14 @@ import { MeiliSearchController } from '../modules/meiliSearch/meiliSearch.contro
 import { PaymentController } from '../modules/payment/payment.controller';
 import { TravelMatchController } from '../modules/traveler_match/travelmatch.controller';
 import { UserController } from '../modules/users/user.controller';
+import { BuilderHistoryController } from 'src/modules/builderHistory/builderHistory.controller';
 
 const userController = new UserController();
 const authController = new AuthController();
 const meilisearchController = new MeiliSearchController();
 const travelMatchController = new TravelMatchController();
 const inviteController = new InviteController();
+const builderHistory = new BuilderHistoryController();
 
 export const noAuthRoutes = [
   {
@@ -54,4 +56,9 @@ export const AppRoutes = [
     middleware: [setUpPem, verifyAccessToken],
     action: inviteController.routes(),
   },
+  {
+    path: '/builder-history',
+    middleware: [setUpPem, verifyAccessToken],
+    action: builderHistory.routes()
+  }
 ];
