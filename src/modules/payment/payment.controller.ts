@@ -14,14 +14,14 @@ export class PaymentController {
   public createPayment = async (req: Request, res: Response) => {
     const storeItems = new Map([
       [1, { priceInCents: 10000, name: "PC Hotel" }],
+      [2, { priceInCents: 10000, name: "Avari Hotel" }],
     ])
     try {
+      const storeItem = storeItems.get(Number(req.query.id) || 1)
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
-        line_items: req.body.item.map((item: any) => {
-          const storeItem = storeItems.get(item?.id || 1)
-          return {
+        line_items: [{
             price_data: {
               currency: "usd",
               product_data: {
@@ -29,9 +29,9 @@ export class PaymentController {
               },
               unit_amount: storeItem?.priceInCents,
             },
-            quantity: item?.quantity || 2,
+            quantity: 1,
           }
-        }),
+        ],
         success_url: `${process.env.CLIENT_URL}/payment-success`,
         cancel_url: `${process.env.CLIENT_URL}/payment-fail`,
       })
