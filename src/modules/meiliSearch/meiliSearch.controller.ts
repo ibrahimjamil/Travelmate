@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import MeiliSearchService from './meiliSearch.service';
 import builderHistoryService from '../builderHistory/builderHistory.service';
-import { verifyIdToken } from 'src/middlewares/authMiddleware';
+import { verifyIdToken } from '../../middlewares/authMiddleware';
 import userService from '../users/user.service';
 export class MeiliSearchController {
   public router: Router;
