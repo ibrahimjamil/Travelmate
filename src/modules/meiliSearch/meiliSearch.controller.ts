@@ -36,7 +36,7 @@ export class MeiliSearchController {
         religion,
       }
 
-      if (travelerLocation || travelerGender) {
+      if (filterParams.travelerLocation?.length || filterParams.travelerGender?.length) {
         const message = `
           pageNo: ${pageNo},
           pageSize: ${pageSize},
